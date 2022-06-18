@@ -1,0 +1,8 @@
+{
+  "name": "nodejs-fundamentals",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/ivanfigueiredo/nodejs-fundamentals.git",
+  "author": "ivanfigueiredo <ivanfigueiredo.wm@gmail.com>",
+  "license": "MIT"
+}
