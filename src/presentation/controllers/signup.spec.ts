@@ -8,7 +8,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         username: 'any_username',
-        driver_license: '',
+        driver_license: 'any_driver_license',
         admin: false
       }
     }
@@ -24,7 +24,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         password: 'any_password',
         username: 'any_username',
-        driver_license: '',
+        driver_license: 'any_driver_license',
         admin: false
       }
     }
@@ -40,12 +40,28 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         username: 'any_username',
-        driver_license: '',
+        driver_license: 'any_driver_license',
         admin: false
       }
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('password'))
+  })
+
+  test('should return 400 if no driver_license is provided', () => {
+    const sut = new SignUpController()
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        username: 'any_username',
+        admin: false
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new MissingParamError('driver_license'))
   })
 })
