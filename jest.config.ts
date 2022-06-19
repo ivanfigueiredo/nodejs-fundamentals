@@ -6,6 +6,7 @@ module.exports = {
     '!**/**/*protocols.ts*',
     '!**/**/protocols/index.ts'
   ],
+  coverageDirectory: './coverage',
   collectCoverage: true,
   testEnvironment: 'node',
   transform: {
