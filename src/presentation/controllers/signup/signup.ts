@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-constructor */
 import { EmailValidator, Controller, HttpRequest, HttpResponse, AddAccount } from './signup-protocols'
 import { MissingParamError, InvalidParamError } from '../errors'
-import { badRequest, serverError } from '../helpers/http-helper'
+import { badRequest, serverError, ok } from '../helpers/http-helper'
 
 export class SignUpController implements Controller {
   constructor (
@@ -9,9 +9,9 @@ export class SignUpController implements Controller {
     private readonly addAccount: AddAccount
   ) {}
 
-  handle (httpRequest: HttpRequest): HttpResponse {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredFields = ['name', 'email', 'password', 'driver_license', 'admin']
+      const requiredFields = ['name', 'email', 'password', 'driver_license', 'username']
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
           return badRequest(new MissingParamError(field))
@@ -22,7 +22,8 @@ export class SignUpController implements Controller {
       if (!isValid) {
         return badRequest(new InvalidParamError('email'))
       }
-      this.addAccount.add(httpRequest.body)
+      const account = await this.addAccount.add(httpRequest.body)
+      return ok(account)
     } catch (error) {
       return serverError()
     }
