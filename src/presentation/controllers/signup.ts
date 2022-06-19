@@ -1,9 +1,7 @@
 /* eslint-disable no-useless-constructor */
-import { EmailValidator } from './../protocols/email-validator'
-import { HttpRequest, HttpResponse } from '../protocols/http'
+import { EmailValidator, Controller, HttpRequest, HttpResponse } from './../protocols'
 import { MissingParamError, InvalidParamError } from './errors'
 import { badRequest, serverError } from './helpers/http-helper'
-import { Controller } from '../protocols/controler'
 
 export class SignUpController implements Controller {
   constructor (
