@@ -8,7 +8,7 @@ module.exports = {
     '!.husky',
     '**/test/**'
   ],
-  modulePathIgnorePatterns: [
+  testPathIgnorePatterns: [
     '.husky',
     'node_modules'
   ],
