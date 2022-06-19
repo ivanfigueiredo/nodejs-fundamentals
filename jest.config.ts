@@ -4,7 +4,13 @@ module.exports = {
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/main/**',
     '!**/**/*protocols.ts*',
-    '!**/**/protocols/index.ts'
+    '!**/**/protocols/index.ts',
+    '!.husky',
+    '**/test/**'
+  ],
+  modulePathIgnorePatterns: [
+    '.husky',
+    'node_modules'
   ],
   coverageDirectory: 'coverage',
   testEnvironment: 'node',
