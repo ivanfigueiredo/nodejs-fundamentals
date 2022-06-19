@@ -9,7 +9,8 @@
     "@types/jest": "^28.1.2",
     "express": "^4.18.1",
     "jest": "^28.1.1",
-    "ts-jest": "^28.0.5"
+    "ts-jest": "^28.0.5",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/jest": "^28.1.2",
@@ -30,7 +31,7 @@
   },
   "scripts": {
     "staged": "lint-staged src/**",
-    "test": "jest --passWithNoTests --silent --noStackTrace --no-cache --runInBand",
+    "test": "npm run jest --passWithNoTests --silent --noStackTrace --no-cache --runInBand",
     "test:unit": "yarn test -c jest-config-unit.js",
     "test:ci": "yarn test --coverage",
     "prepare": "husky install"
