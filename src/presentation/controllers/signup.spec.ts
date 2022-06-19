@@ -1,10 +1,13 @@
 import { EmailValidator } from './../protocols'
 import { SignUpController } from './signup'
 import { MissingParamError, InvalidParamError, ServerError } from './errors/'
+import { AccountModel } from '../../domain/models/account'
+import { AddAccount, AddAccountParams } from '../../domain/usecases/account/add-account'
 
 interface SutTypes {
   sut: SignUpController
   emailValidator: EmailValidator
+  addAccountStub: AddAccount
 }
 
 const makeEmailValidator = (): EmailValidator => {
@@ -16,12 +19,31 @@ const makeEmailValidator = (): EmailValidator => {
   return new EmailValidatorStub()
 }
 
+const makeAddAccount = (): AddAccount => {
+  class AddAccountStub implements AddAccount {
+    async add (account: AddAccountParams): Promise<AccountModel> {
+      const fakeAccount = {
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'valid_email@mail.com',
+        password: 'valid_password',
+        driver_license: 'valid_driver_license',
+        admin: true
+      }
+      return fakeAccount
+    }
+  }
+  return new AddAccountStub()
+}
+
 const makeSut = (): SutTypes => {
   const emailValidator = makeEmailValidator()
-  const sut = new SignUpController(emailValidator)
+  const addAccountStub = makeAddAccount()
+  const sut = new SignUpController(emailValidator, addAccountStub)
   return {
     sut,
-    emailValidator
+    emailValidator,
+    addAccountStub
   }
 }
 describe('SignUp Controller', () => {
@@ -156,5 +178,22 @@ describe('SignUp Controller', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('should call AddAccount with correct values', () => {
+    const { sut, addAccountStub } = makeSut()
+    const spyAdd = jest.spyOn(addAccountStub, 'add')
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        username: 'any_username',
+        driver_license: 'any_driver_license',
+        admin: true
+      }
+    }
+    sut.handle(httpRequest)
+    expect(spyAdd).toHaveBeenCalledWith(httpRequest.body)
   })
 })
