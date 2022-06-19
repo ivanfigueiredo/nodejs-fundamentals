@@ -1,4 +1,3 @@
-import { AccountModel } from './../../../domain/models/account'
 import { ServerError } from './../errors/server-error'
 import { HttpResponse } from './../../protocols/http'
 
@@ -12,7 +11,7 @@ export const serverError = (): HttpResponse => ({
   body: new ServerError()
 })
 
-export const ok = (account: AccountModel): HttpResponse => ({
+export const ok = (data: any): HttpResponse => ({
   statusCode: 200,
-  body: account
+  body: data
 })
