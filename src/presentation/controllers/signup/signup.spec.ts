@@ -28,7 +28,7 @@ const makeAddAccount = (): AddAccount => {
         username: 'valid_username',
         driver_license: 'valid_driver_license'
       }
-      return fakeAccount
+      return new Promise(resolve => resolve(fakeAccount))
     }
   }
   return new AddAccountStub()
@@ -189,7 +189,9 @@ describe('SignUp Controller', () => {
 
   test('should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => { throw new Error() })
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
+      return new Promise((resolve, reject) => reject(new Error()))
+    })
     const httpRequest = {
       body: {
         name: 'any_name',
