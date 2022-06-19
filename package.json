@@ -31,7 +31,7 @@
   "scripts": {
     "test": "lint-staged src/**",
     "test:jest": "yarn jest --passWithNoTests --silent --noStackTrace --no-cache --runInBand",
-    "test:unit": "yarn test:jest -- -c jest-config-unit.js",
+    "test:unit": "yarn test:jest -c jest-config-unit.js",
     "prepare": "husky install"
   }
 }

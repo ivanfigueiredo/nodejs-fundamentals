@@ -2,4 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run test
-npm run test:jest --findRelatedTests --silent --noStackTrace --no-cache --runInBand
+npm run test:jest --passWithNoTests --findRelatedTests --silent --noStackTrace --no-cache --runInBand
