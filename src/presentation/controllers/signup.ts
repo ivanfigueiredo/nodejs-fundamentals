@@ -1,11 +1,13 @@
 /* eslint-disable no-useless-constructor */
+import { AddAccount } from './../../domain/usecases/account/add-account'
 import { EmailValidator, Controller, HttpRequest, HttpResponse } from './../protocols'
 import { MissingParamError, InvalidParamError } from './errors'
 import { badRequest, serverError } from './helpers/http-helper'
 
 export class SignUpController implements Controller {
   constructor (
-    private readonly emailValidator: EmailValidator
+    private readonly emailValidator: EmailValidator,
+    private readonly addAccount: AddAccount
   ) {}
 
   handle (httpRequest: HttpRequest): HttpResponse {
@@ -21,6 +23,7 @@ export class SignUpController implements Controller {
       if (!isValid) {
         return badRequest(new InvalidParamError('email'))
       }
+      this.addAccount.add(httpRequest.body)
     } catch (error) {
       return serverError()
     }
