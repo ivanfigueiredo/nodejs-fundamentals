@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-constructor */
 import { EmailValidator } from './../protocols/email-validator'
 import { HttpRequest, HttpResponse } from '../protocols/http'
-import { MissingParamError, InvalidParamError } from './errors/'
+import { MissingParamError, InvalidParamError } from './errors'
 import { badRequest, serverError } from './helpers/http-helper'
 import { Controller } from '../protocols/controler'
 
