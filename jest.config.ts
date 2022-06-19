@@ -7,6 +7,7 @@ module.exports = {
     '!**/**/protocols/index.ts'
   ],
   coverageDirectory: 'coverage',
+  collectCoverage: false,
   testEnvironment: 'node',
   transform: {
     '.+\\.ts$': 'ts-jest'
