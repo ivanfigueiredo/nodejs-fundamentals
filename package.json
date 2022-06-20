@@ -35,7 +35,6 @@
     "staged": "lint-staged src/**",
     "test": "yarn run jest --passWithNoTests --silent --noStackTrace --no-cache --runInBand",
     "test:unit": "yarn test -c jest-config-unit.js",
-    "test:ci": "yarn test --coverage",
     "prepare": "husky install"
   }
 }
